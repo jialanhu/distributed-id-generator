@@ -1,7 +1,7 @@
 package main
 
 import (
-	"distributed-id-generator/internal/snowflake"
+	"distributed-id-generator/pkg/snowflake"
 	"fmt"
 )
 
