@@ -73,3 +73,19 @@ func (n *Node) GenerateID() ID {
 
 	return ID(now<<n.timeShift | n.node<<n.nodeShift | n.step)
 }
+
+func (n *Node) ParseMSTime(id ID) int64 {
+	return int64(id)>>n.timeShift + Epoch
+}
+
+func (n *Node) ParseNodeID(id ID) int64 {
+	return int64(id) & n.nodeMask >> n.nodeShift
+}
+
+func (n *Node) ParseStep(id ID) int64 {
+	return int64(id) & n.stepMask
+}
+
+func (n *Node) getTime() int64 {
+	return n.time + Epoch
+}

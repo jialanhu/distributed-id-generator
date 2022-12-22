@@ -22,12 +22,30 @@ func TestGenerateID(t *testing.T) {
 	for i := 0; i < 1000000; i++ {
 		new = node.GenerateID()
 		if old == new {
-			t.Errorf("old(%d) & new(%d) are the same", old, new)
+			t.Errorf("old:(%d) & new:(%d) are the same", old, new)
 		}
 
 		if old > new {
 			t.Errorf("old value:(%d) is greater then the new value:(%d)", old, new)
 		}
 		old = new
+	}
+}
+
+func TestParse(t *testing.T) {
+	node, _ := NewNode(2)
+	id := node.GenerateID()
+	nodeID := node.ParseNodeID(id)
+	if nodeID != 2 {
+		t.Errorf("ParseNodeID error nodeID:(%d) want:(2)", nodeID)
+	}
+	step := node.ParseStep(id)
+	if step != 0 {
+		t.Errorf("ParseStep error step:(%d) want:(0)", step)
+	}
+	time := node.ParseMSTime(id)
+	nodeTime := node.getTime()
+	if time != nodeTime {
+		t.Errorf("ParseMSTime error time:(%d) want:(%d)", time, nodeTime)
 	}
 }
